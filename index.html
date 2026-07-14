@@ -2532,24 +2532,26 @@
       <svg viewBox="0 0 14 14"><line x1="1" y1="1" x2="13" y2="13"/><line x1="13" y1="1" x2="1" y2="13"/></svg>
     </button>
  
-    <div id="gymModalForm">
+    <form id="gymModalForm" name="booking-hero" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+      <input type="hidden" name="form-name" value="booking-hero"/>
+      <p style="position:absolute; left:-9999px;" aria-hidden="true"><label>Не заповнюйте: <input name="bot-field" tabindex="-1" autocomplete="off"/></label></p>
       <div class="gym-modal-label" id="gymModalLabel">Абонемент</div>
       <div class="gym-modal-title" id="gymModalTitle">ЗАБРОНЮЙ МІСЦЕ</div>
       <div class="gym-modal-desc" id="gymModalDesc">Залишіть своє ім'я та номер телефону — наш менеджер зв'яжеться з вами протягом 15 хвилин.</div>
  
       <div class="gym-field">
         <label class="gym-field-label" id="gymFieldNameLabel">Ваше ім'я</label>
-        <input type="text" id="gymInputName" placeholder="Наприклад, Олексій" autocomplete="given-name"/>
+        <input type="text" id="gymInputName" name="name" placeholder="Наприклад, Олексій" autocomplete="given-name"/>
       </div>
  
       <div class="gym-field">
         <label class="gym-field-label" id="gymFieldPhoneLabel">Номер телефону</label>
-        <input type="tel" id="gymInputPhone" placeholder="+380 XX XXX XX XX" autocomplete="tel"/>
+        <input type="tel" id="gymInputPhone" name="phone" placeholder="+380 XX XXX XX XX" autocomplete="tel"/>
       </div>
  
-      <button class="gym-modal-submit" id="gymModalSubmit">Надіслати заявку</button>
+      <button class="gym-modal-submit" id="gymModalSubmit" type="submit">Надіслати заявку</button>
       <div class="gym-modal-privacy" id="gymModalPrivacy">Натискаючи кнопку, ви погоджуєтесь з умовами обробки персональних даних</div>
-    </div>
+    </form>
  
     <div class="gym-modal-success" id="gymModalSuccess">
       <div class="gym-modal-success-icon">
@@ -2608,24 +2610,26 @@
       <svg viewBox="0 0 14 14"><line x1="1" y1="1" x2="13" y2="13"/><line x1="13" y1="1" x2="1" y2="13"/></svg>
     </button>
  
-    <div id="advModalForm">
+    <form id="advModalForm" name="booking-advantages" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+      <input type="hidden" name="form-name" value="booking-advantages"/>
+      <p style="position:absolute; left:-9999px;" aria-hidden="true"><label>Не заповнюйте: <input name="bot-field" tabindex="-1" autocomplete="off"/></label></p>
       <div class="adv-modal-label" id="advModalLabel">Абонемент</div>
       <div class="adv-modal-title" id="advModalTitle">ЗАБРОНЮЙ МІСЦЕ</div>
       <div class="adv-modal-desc" id="advModalDesc">Залишіть своє ім'я та номер телефону — наш менеджер зв'яжеться з вами протягом 15 хвилин.</div>
  
       <div class="adv-field">
         <label class="adv-field-label" id="advFieldNameLabel">Ваше ім'я</label>
-        <input type="text" id="advInputName" placeholder="Наприклад, Олексій" autocomplete="given-name"/>
+        <input type="text" id="advInputName" name="name" placeholder="Наприклад, Олексій" autocomplete="given-name"/>
       </div>
  
       <div class="adv-field">
         <label class="adv-field-label" id="advFieldPhoneLabel">Номер телефону</label>
-        <input type="tel" id="advInputPhone" placeholder="+380 XX XXX XX XX" autocomplete="tel"/>
+        <input type="tel" id="advInputPhone" name="phone" placeholder="+380 XX XXX XX XX" autocomplete="tel"/>
       </div>
  
-      <button class="adv-modal-submit" id="advModalSubmit">Надіслати заявку</button>
+      <button class="adv-modal-submit" id="advModalSubmit" type="submit">Надіслати заявку</button>
       <div class="adv-modal-privacy">Натискаючи кнопку, ви погоджуєтесь з умовами обробки персональних даних</div>
-    </div>
+    </form>
  
     <div class="adv-modal-success" id="advModalSuccess">
       <div class="adv-modal-success-icon">
@@ -2744,10 +2748,12 @@
       <div class="gym-ft-sub-title" id="gymFtSubTitle">БУДЬ В КУРСІ</div>
       <div class="gym-ft-sub-desc" id="gymFtSubDesc">Акції, новини та розклад — першими на вашу пошту</div>
     </div>
-    <div class="gym-ft-sub-form">
-      <input class="gym-ft-sub-input" id="gymFtSubInput" type="email" placeholder="Ваш email"/>
-      <button class="gym-ft-sub-btn" id="gymFtSubBtn">Підписатись</button>
-    </div>
+    <form class="gym-ft-sub-form" id="gymFtSubForm" name="newsletter" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+      <input type="hidden" name="form-name" value="newsletter"/>
+      <p style="position:absolute; left:-9999px;" aria-hidden="true"><label>Не заповнюйте: <input name="bot-field" tabindex="-1" autocomplete="off"/></label></p>
+      <input class="gym-ft-sub-input" id="gymFtSubInput" name="email" type="email" placeholder="Ваш email"/>
+      <button class="gym-ft-sub-btn" id="gymFtSubBtn" type="submit">Підписатись</button>
+    </form>
   </div>
  
   <!-- Нижній рядок -->
@@ -2924,7 +2930,8 @@
     });
  
     if (submit) {
-      submit.addEventListener('click', function() {
+      formEl.addEventListener('submit', function(e) {
+        e.preventDefault();
         var nameVal  = (document.getElementById('gymInputName') || {}).value || '';
         var phoneVal = (document.getElementById('gymInputPhone') || {}).value || '';
  
@@ -2942,11 +2949,23 @@
         submit.disabled = true;
         submit.textContent = 'Відправляємо...';
  
-        setTimeout(function() {
-          formEl.style.display = 'none';
-          successEl.classList.add('show');
-          setTimeout(closeModal, 3200);
-        }, 800);
+        var fd = new FormData(formEl);
+        fetch('/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams(fd).toString()
+        })
+          .then(function() {
+            formEl.style.display = 'none';
+            successEl.classList.add('show');
+            submit.disabled = false;
+            submit.textContent = CONFIG.modalSubmitText;
+            setTimeout(closeModal, 3200);
+          })
+          .catch(function() {
+            submit.disabled = false;
+            submit.textContent = 'Спробувати ще раз';
+          });
       });
     }
  
@@ -3214,7 +3233,8 @@
     });
  
     if (submit) {
-      submit.addEventListener('click', function () {
+      formEl.addEventListener('submit', function (e) {
+        e.preventDefault();
         var nameVal  = (document.getElementById('advInputName') || {}).value || '';
         var phoneVal = (document.getElementById('advInputPhone') || {}).value || '';
  
@@ -3232,11 +3252,23 @@
         submit.disabled = true;
         submit.textContent = 'Відправляємо...';
  
-        setTimeout(function () {
-          formEl.style.display = 'none';
-          successEl.classList.add('show');
-          setTimeout(closeModal, 3200);
-        }, 800);
+        var fd = new FormData(formEl);
+        fetch('/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams(fd).toString()
+        })
+          .then(function () {
+            formEl.style.display = 'none';
+            successEl.classList.add('show');
+            submit.disabled = false;
+            submit.textContent = 'Надіслати заявку';
+            setTimeout(closeModal, 3200);
+          })
+          .catch(function () {
+            submit.disabled = false;
+            submit.textContent = 'Спробувати ще раз';
+          });
       });
     }
  
@@ -3985,21 +4017,42 @@
     var btn = document.getElementById('gymFtSubBtn');
     if (btn) btn.textContent = CONFIG.subBtnText;
  
-    /* Проста валідація */
+    /* Проста валідація + відправка на Netlify */
     if (btn && inp) {
-      btn.addEventListener('click', function () {
+      var subForm = document.getElementById('gymFtSubForm');
+      var handler = function (e) {
+        if (e) e.preventDefault();
         var val = inp.value.trim();
         if (!val || val.indexOf('@') < 0) {
           inp.style.borderColor = 'rgba(255,80,80,0.5)';
           inp.focus();
           return;
         }
-        btn.textContent = 'Дякуємо!';
-        btn.style.background = CONFIG.colorAccentDark;
-        inp.value = '';
-        inp.disabled = true;
         btn.disabled = true;
-      });
+        btn.textContent = 'Відправляємо...';
+ 
+        var fd = new FormData(subForm);
+        fetch('/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams(fd).toString()
+        })
+          .then(function () {
+            btn.textContent = 'Дякуємо!';
+            btn.style.background = CONFIG.colorAccentDark;
+            inp.value = '';
+            inp.disabled = true;
+          })
+          .catch(function () {
+            btn.disabled = false;
+            btn.textContent = 'Спробувати ще раз';
+          });
+      };
+      if (subForm) {
+        subForm.addEventListener('submit', handler);
+      } else {
+        btn.addEventListener('click', handler);
+      }
       inp.addEventListener('input', function () {
         inp.style.borderColor = '';
       });
